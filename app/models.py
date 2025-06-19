@@ -1,5 +1,5 @@
 from pydantic import BaseModel
 
-class TransactionStatusResponse(BaseModel):
+class TransactionValidationResult(BaseModel):
     transaction_id: str
-    status: str
+    validation_status: str

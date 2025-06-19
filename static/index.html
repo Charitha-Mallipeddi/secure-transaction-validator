@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Secure Transaction Validator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f1f1f1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 60px;
+    }
+    h1 {
+      color: #2c3e50;
+    }
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      width: 100%;
+      max-width: 400px;
+    }
+    input[type="text"] {
+      padding: 10px;
+      width: 100%;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      margin-top: 10px;
+      margin-bottom: 20px;
+    }
+    button {
+      background-color: #0077cc;
+      color: white;
+      border: none;
+      padding: 10px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:hover {
+      background-color: #005fa3;
+    }
+    .result {
+      margin-top: 20px;
+      font-weight: bold;
+      font-size: 18px;
+    }
+  </style>
+</head>
+<body>
+  <h1>Transaction Status Checker</h1>
+  <div class="container">
+    <label for="txn">Enter Transaction ID:</label>
+    <input type="text" id="txn" placeholder="e.g., TXN123">
+    <button onclick="validateTransaction()">Validate</button>
+    <div class="result" id="result"></div>
+  </div>
+
+  <script>
+    async function validateTransaction() {
+      const txnId = document.getElementById("txn").value;
+      const resultBox = document.getElementById("result");
+      resultBox.textContent = "Checking...";
+
+      try {
+        const response = await fetch(`/validate/${txnId}`);
+        if (!response.ok) throw new Error("Transaction not found");
+
+        const data = await response.json();
+        resultBox.textContent = `✅ Status: ${data.validation_status}`;
+        resultBox.style.color = "green";
+      } catch (error) {
+        resultBox.textContent = "❌ Transaction not found.";
+        resultBox.style.color = "red";
+      }
+    }
+  </script>
+</body>
+</html>
