@@ -22,6 +22,10 @@ A FastAPI-based web app to validate financial transactions and display their sta
 ### 🐳 Docker
 
 ```bash
+![Dockerized](https://img.shields.io/badge/docker-ready-blue)
+![FastAPI](https://img.shields.io/badge/fastapi-uvicorn-green)
+![License: MIT](https://img.shields.io/badge/license-MIT-yellow)
+
 docker-compose up --build
 Tech Stack
 Backend: FastAPI
