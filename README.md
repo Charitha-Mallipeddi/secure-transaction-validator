@@ -1,18 +1,34 @@
-# Secure Transaction Validator API 🚀
+# 🔐 Secure Transaction Validator
 
-A lightweight FastAPI project to validate transaction IDs securely and return their status in real-time.
+A FastAPI-based web app to validate financial transactions and display their status using a clean HTML frontend.
 
-## 🔧 Features
-- REST API built with **FastAPI**
-- Data stored in **SQLite**
-- **Swagger UI** for easy testing
-- Real-time validation of transaction IDs
-- Modular, clean code structure
+![Screenshot](static/mta-logo.png)
 
-## 📦 Tech Stack
-- Python 3.9
-- FastAPI
-- Uvicorn
-- SQLite3
+## 🛠 Features
 
-## 📁 Folder Structure
+- 🔎 Validate transaction IDs in real time
+- 🧠 PostgreSQL backend for transaction data
+- 💻 Frontend form with TailwindCSS
+- 🐳 Dockerized for local or cloud deployment
+- 🚀 Easily deployable to Render, Railway, or AWS
+
+---
+
+## 🚀 How to Run
+
+### 🐳 Docker
+
+```bash
+docker-compose up --build
+Tech Stack
+Backend: FastAPI
+
+Frontend: HTML + TailwindCSS
+
+DB: PostgreSQL (via Docker)
+
+ORM: SQLAlchemy
+
+Containerization: Docker & Docker Compose
+
+
