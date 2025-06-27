@@ -2,7 +2,10 @@
 
 A FastAPI-based web app to validate financial transactions and display their status using a clean HTML frontend.
 
-![Screenshot](static/mta-logo.png)
+![Screenshot]<p align="center">
+  <img src="static/mta-logo.png" alt="MTA Logo" width="150"/>
+</p>
+
 
 ## 🛠 Features
 
