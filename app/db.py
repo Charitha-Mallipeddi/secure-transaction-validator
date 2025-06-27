@@ -1,10 +1,18 @@
-import sqlite3
-from pathlib import Path
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker, declarative_base
+import os
 
-DB_PATH = Path(__file__).parent.parent / "data" / "transactions.db"
+SQLALCHEMY_DATABASE_URL = os.getenv("DATABASE_URL", "sqlite:///./transactions.db")
 
-def get_db_connection():
-    print("🔍 Using DB Path:", DB_PATH)
-    conn = sqlite3.connect(DB_PATH)
-    conn.row_factory = sqlite3.Row  # ✅ Enables dict-style access like row["status"]
-    return conn
+engine = create_engine(SQLALCHEMY_DATABASE_URL)
+
+SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
+
+Base = declarative_base()
+
+def get_db():
+    db = SessionLocal()
+    try:
+        yield db
+    finally:
+        db.close()

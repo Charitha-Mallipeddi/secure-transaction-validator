@@ -1,24 +1,14 @@
-from fastapi import APIRouter, HTTPException
-from app.db import get_db_connection
-from app.models import TransactionValidationResult
+from fastapi import APIRouter, Depends
+from sqlalchemy.orm import Session
+from app.db import get_db
+from app.models import Transaction
 
-router = APIRouter()  # ← ✅ THIS LINE IS MISSING
+router = APIRouter()
 
-@router.get("/validate/{transaction_id}", response_model=TransactionValidationResult)
-def validate_transaction(transaction_id: str):
-    print(f"🔍 Looking for: {transaction_id}")
-    conn = get_db_connection()
-    cur = conn.cursor()
-    cur.execute("SELECT status FROM transactions WHERE transaction_id = ?", (transaction_id,))
-    row = cur.fetchone()
-    conn.close()
-
-    if row:
-        print("✅ Found:", row["status"])
-        return TransactionValidationResult(
-            transaction_id=transaction_id,
-            validation_status=row["status"]
-        )
+@router.get("/validate/{tx_id}")
+def validate_transaction(tx_id: str, db: Session = Depends(get_db)):
+    tx = db.query(Transaction).filter(Transaction.transaction_id == tx_id).first()
+    if tx:
+        return {"transaction_id": tx.transaction_id, "validation_status": tx.validation_status}
     else:
-        print("❌ Not Found in DB!")
-        raise HTTPException(status_code=404, detail="Transaction not found")
+        return {"transaction_id": tx_id, "validation_status": "Unknown"}
